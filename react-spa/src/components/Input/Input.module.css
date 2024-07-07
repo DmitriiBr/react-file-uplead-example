@@ -1,0 +1,36 @@
+.input {
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.25rem;
+  width: 100%;
+  height: 2.5rem;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 calc(3px + 2px) var(--ring-offset-color);
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.input[type="file"] {
+  cursor: pointer;
+}
+
+.input[type="file"]::file-selector-button {
+  border: 0;
+  margin-inline-end: 1rem;
+  margin-inline-start: -1rem;
+  padding: 0.625rem 1rem 0.625rem 2rem;
+  background: var(--primary-bg-color);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background var(--transition-duration-shortest) ease-in;
+}
+
+.input[type="file"]::file-selector-button:hover {
+  background: var(--primary-bg-color-hover);
+}
