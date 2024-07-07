@@ -1,21 +1,31 @@
+import { Button } from "$/Button/Button";
 import { Container } from "$/Container/Container";
 import { Input } from "$/Input/Input";
+import { Label } from "$/Label/Label";
+import { FormEventHandler } from "react";
 
 const App = () => {
+  const handleSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <Container>
-      <div
+      <form
+        onSubmit={handleSubmit}
         style={{
-          width: "100%",
           display: "flex",
           flexDirection: "column",
-          gap: ".375rem",
-          fontWeight: 500,
+          alignItems: "flex-start",
+          gap: "1rem",
+          width: "100%",
         }}
       >
-        <label htmlFor="fileInput">Upload file</label>
-        <Input id="fileInput" type="file" tabIndex={0} />
-      </div>
+        <Label htmlFor="fileInput" title="Upload file">
+          <Input id="fileInput" type="file" tabIndex={0} />
+        </Label>
+        <Button type="submit">Upload</Button>
+      </form>
     </Container>
   );
 };

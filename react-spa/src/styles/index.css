@@ -8,6 +8,7 @@
 
   --primary-bg-color: hsla(295, 28%, 17%, 1);
   --primary-bg-color-hover: hsla(274, 79%, 69%, 1);
+  --primary-bg-color-active: hsla(274, 79%, 49%, 1);
 
   --transition-duration-shortest: 50ms;
 }

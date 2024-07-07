@@ -1,0 +1,27 @@
+.button {
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.25rem;
+  padding: 0.625rem 2rem;
+  height: 2.5rem;
+  background: var(--primary-bg-color);
+  color: var(--white);
+  cursor: pointer;
+  transition: background var(--transition-duration-shortest) ease-in;
+}
+
+.button:hover {
+  background: var(--primary-bg-color-hover);
+}
+
+.button:active {
+  background: var(--primary-bg-color-active);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 calc(3px + 2px) var(--ring-offset-color);
+}
+
+.button:focus-visible() {
+  outline: none;
+}
