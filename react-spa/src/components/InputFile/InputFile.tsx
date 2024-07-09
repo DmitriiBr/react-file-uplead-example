@@ -1,3 +1,40 @@
-export const InputFile = () => {
-  return <div></div>;
+import { Input } from "$/Input/Input";
+import { Label } from "$/Label/Label";
+import { ChangeEventHandler, InputHTMLAttributes, useState } from "react";
+
+type Props = {
+  title?: string;
+  id?: string;
+  inputProps?: Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    "id" | "type" | "tabIndex" | "accept"
+  >;
+};
+
+export const InputFile = ({ id, title, inputProps }: Props) => {
+  const [file, setFile] = useState("");
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    if (event.target.files) {
+      const files: FileList = event.target.files;
+
+      console.log(files);
+    }
+
+    setFile("hello");
+  };
+
+  console.log(file);
+
+  return (
+    <Label htmlFor={id} title={title}>
+      <Input
+        onChange={handleChange}
+        id={id}
+        type="file"
+        tabIndex={0}
+        {...inputProps}
+      />
+    </Label>
+  );
 };

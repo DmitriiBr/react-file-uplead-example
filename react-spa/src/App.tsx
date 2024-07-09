@@ -1,6 +1,7 @@
 import { Button } from "$/Button/Button";
 import { Container } from "$/Container/Container";
 import { Input } from "$/Input/Input";
+import { InputFile } from "$/InputFile/InputFile";
 import { Label } from "$/Label/Label";
 
 import { FormEventHandler } from "react";
@@ -22,9 +23,7 @@ const App = () => {
           width: "100%",
         }}
       >
-        <Label htmlFor="fileInput" title="Upload file">
-          <Input id="fileInput" type="file" tabIndex={0} />
-        </Label>
+        <InputFile id="inputFile" title="Upload your file" />
         <Button type="submit">Upload</Button>
       </form>
     </Container>
