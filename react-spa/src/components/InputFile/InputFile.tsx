@@ -12,29 +12,9 @@ type Props = {
 };
 
 export const InputFile = ({ id, title, inputProps }: Props) => {
-  const [file, setFile] = useState("");
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (event.target.files) {
-      const files: FileList = event.target.files;
-
-      console.log(files);
-    }
-
-    setFile("hello");
-  };
-
-  console.log(file);
-
   return (
     <Label htmlFor={id} title={title}>
-      <Input
-        onChange={handleChange}
-        id={id}
-        type="file"
-        tabIndex={0}
-        {...inputProps}
-      />
+      <Input id={id} type="file" tabIndex={0} {...inputProps} />
     </Label>
   );
 };
