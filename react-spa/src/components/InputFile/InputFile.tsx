@@ -1,6 +1,6 @@
 import { Input } from "$/Input/Input";
 import { Label } from "$/Label/Label";
-import { ChangeEventHandler, InputHTMLAttributes, useState } from "react";
+import { InputHTMLAttributes } from "react";
 
 type Props = {
   title?: string;
