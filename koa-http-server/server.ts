@@ -1,8 +1,7 @@
 import Koa from "koa";
 import KoaRouter from "koa-router";
 import KoaBody from "koa-body";
-import Fs, { ReadStream } from "fs";
-import formidable from "formidable";
+import Fs from "fs";
 
 const PORT = 40741;
 
@@ -11,7 +10,9 @@ const router = new KoaRouter();
 
 let image = "";
 let b64Image = "";
+
 const multipleImages: Record<string, string> = {};
+const b64MultipleImages: Record<string, string> = {};
 
 router.post("/upload", async (ctx) => {
   if (ctx.request.files) {
@@ -63,6 +64,23 @@ router.post("/b64-upload", async (ctx) => {
   ctx.response.status = 200;
 });
 
+router.post("/b64-upload-multiple", async (ctx) => {
+  if (ctx.request.body) {
+    const body: B64FileUploadBody[] = ctx.request.body;
+
+    body.forEach(({ fileName, file }, index) => {
+      if (!Array.isArray(file)) {
+        console.log("Filename: ", index, fileName);
+        console.log("Filepath: ", index, file);
+
+        b64MultipleImages[fileName] = file;
+      }
+    });
+  }
+
+  ctx.response.status = 200;
+});
+
 app.use(KoaBody({ multipart: true, jsonLimit: "200mb" }));
 app.use(router.routes());
 app.use(router.allowedMethods());
@@ -91,6 +109,15 @@ app.use(async (ctx, next) => {
 
     if (kind === "b64-single-image" && b64Image) {
       const resultImage = b64Image.split(";base64,").pop();
+
+      if (resultImage) {
+        body = Buffer.from(resultImage, "base64");
+        status = 200;
+      }
+    }
+
+    if (kind === "b64-multiple-images" && b64MultipleImages[fileName]) {
+      const resultImage = b64MultipleImages[fileName].split(";base64,").pop();
 
       if (resultImage) {
         body = Buffer.from(resultImage, "base64");

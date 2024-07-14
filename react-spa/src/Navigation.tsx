@@ -7,6 +7,7 @@ export const Navigation = () => {
       <Link to="/multipart-single">multipart-single</Link>
       <Link to="/multipart-multi">multipart-multi</Link>
       <Link to="/base64-single">base64-single</Link>
+      <Link to="/base64-multi">base64-multi</Link>
     </Container>
   );
 };
