@@ -1,85 +1,19 @@
-import { Button } from "$/Button/Button";
-import { Container } from "$/Container/Container";
-import { InputFile } from "$/InputFile/InputFile";
-
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { MultipartSingleFile } from "./features/multipart/MultipartSingleFile";
+import { Navigation } from "./Navigation";
+import { MultipartMultiFiles } from "./features/multipart/MultipartMultiFiles";
+import { Base64SingleFile } from "./features/base64/Base64SingleFile";
 
 const App = () => {
-  const [files, setFiles] = useState<FileList>();
-  const [image, setImage] = useState({ isLoading: true, src: "" });
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (event.target.files) {
-      setFiles(event.target.files);
-    }
-  };
-
-  const handleSubmit: FormEventHandler = (event) => {
-    event.preventDefault();
-
-    const data = new FormData();
-
-    if (files) {
-      data.append("file", files[0]);
-      data.append("file-name", files[0].name);
-
-      fetch("/req/upload", {
-        method: "POST",
-        body: data,
-      }).then(() => {
-        let isLoading = false;
-
-        if (image.src !== `/req/images/${files[0].name}`) {
-          isLoading = true;
-        }
-
-        setImage({
-          isLoading,
-          src: `/req/images/${files[0].name}`,
-        });
-      });
-    }
-  };
-
-  const handleLoad = () =>
-    setImage((state) => ({ ...state, isLoading: false }));
-
   return (
-    <Container>
-      <form
-        onSubmit={handleSubmit}
-        encType="multipart/form-data"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          gap: "1rem",
-          width: "100%",
-        }}
-      >
-        <InputFile
-          inputProps={{
-            onChange: handleChange,
-          }}
-          id="inputFile"
-          title="Upload your file"
-        />
-        <Button type="submit">Upload</Button>
-      </form>
-      {image.isLoading && image.src && "Image is loading!!"}
-      {image.src && (
-        <img
-          style={{
-            display: image.isLoading ? "none" : "block",
-          }}
-          alt="image"
-          height="200px"
-          width="200px"
-          src={image.src}
-          onLoad={handleLoad}
-        />
-      )}
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Navigation />} path="/" />
+        <Route element={<MultipartSingleFile />} path="/multipart-single" />
+        <Route element={<MultipartMultiFiles />} path="/multipart-multi" />
+        <Route element={<Base64SingleFile />} path="/base64-single" />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
